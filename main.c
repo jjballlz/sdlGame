@@ -191,26 +191,26 @@ void GameInit(GameState *game)
 	SDL_Surface *ledgeSurface = NULL;
 	SDL_Surface *bgSurface = NULL;
 
-	bgSurface = IMG_Load("background.png");
-	if(bgSurface == NULL)
+	bgSurface = IMG_Load("image/background.png");
+	if (bgSurface == NULL)
 	{
-		printf("could not load background.png");
+		printf("could not load image/background.png");
 	}
 	game->bgTexture = SDL_CreateTextureFromSurface(game->renderer, bgSurface);
 	SDL_FreeSurface(bgSurface);
 
-	manSurface = IMG_Load("man.png");
-	if(manSurface == NULL)
+	manSurface = IMG_Load("image/man.png");
+	if (manSurface == NULL)
 	{
-		printf("failed to load man.png");
+		printf("failed to load image/man.png");
 	}
 	game->manTexture = SDL_CreateTextureFromSurface(game->renderer, manSurface);
 	SDL_FreeSurface(manSurface);
 
-	ledgeSurface = IMG_Load("grass.png");
-	if(ledgeSurface == NULL)
+	ledgeSurface = IMG_Load("image/grass.png");
+	if (ledgeSurface == NULL)
 	{
-		printf("failed to load grass.png");
+		printf("failed to load image/grass.png");
 	}
 	game->ledgeTexture = SDL_CreateTextureFromSurface(game->renderer, ledgeSurface);
 	SDL_FreeSurface(ledgeSurface);
