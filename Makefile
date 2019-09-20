@@ -8,9 +8,9 @@ clean:
 .PHONY: all clean
 
 sdl_cflags := $(shell sdl2-config --cflags)
-sdl_libs := $(shell sdl2-config --libs)
+sdl_libs := $(shell sdl2-config --libs) -lSDL2_image
 override CFLAGS += $(sdl_cflags)
 override LIBS += $(sdl_libs)
 
 $(appname): main.o
-	    $(CC) $(LDFLAGS) -o $@ $^ $(LIBS) -lSDL2_image
+	    $(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
