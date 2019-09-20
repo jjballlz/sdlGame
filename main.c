@@ -12,7 +12,7 @@ SDL_Surface* load_image(char* imageName, GameState* game)
     SDL_Surface* surface = NULL;
     surface = IMG_Load(imageName);
     if (surface == NULL) {
-        printf("could not load %s \b", imageName);
+        printf("could not load %s \n", imageName);
     }
     return surface;
 }
@@ -51,9 +51,9 @@ void GameInit(GameState* game)
         game->ledges[i].y = 620;
     }
 
-    char backgroundSurface[50] = "background.png";
-    char manSurface[50] = "man.png";
-    char ledgesSurface[50] = "grass.png";
+    char backgroundSurface[50] = "image/background.png";
+    char manSurface[50] = "image/man.png";
+    char ledgesSurface[50] = "image/grass.png";
 
     game->bgTexture = SDL_CreateTextureFromSurface(
         game->renderer, load_image(backgroundSurface, game));
