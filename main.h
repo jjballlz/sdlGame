@@ -3,40 +3,40 @@
 
 typedef struct
 {
-	float x, y, w, h;
-	float dy;
-	float dx;
-	short life;
-	char *name;
-	int facingLeft;
+    float x, y, w, h;
+    float dy;
+    float dx;
+    short life;
+    char* name;
+    int facingLeft;
 } Man;
 
 typedef struct
 {
-	int x, y, w, h;
+    int x, y, w, h;
 } Ledge;
 
 typedef struct
 {
-	float x, y;
-	float dy;
+    float x, y;
+    float dy;
 } Star;
 
 typedef struct
 {
-	float scrollX, scrollY;
-	float rightScreen;
-	float leftScreen;
-	float topScreen, bottomScreen;
+    float scrollX, scrollY;
+    float rightScreen;
+    float leftScreen;
+    float topScreen, bottomScreen;
 
-	Man man;
+    Man man;
 
-	Ledge ledges[100];
+    Ledge ledges[100];
 
-	SDL_Texture *bgTexture;
-	SDL_Texture *manTexture;
-	SDL_Texture *ledgeTexture;
-	SDL_Renderer *renderer;
+    SDL_Texture* bgTexture;
+    SDL_Texture* manTexture;
+    SDL_Texture* ledgeTexture;
+    SDL_Renderer* renderer;
 } GameState;
 
 #endif
