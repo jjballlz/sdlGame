@@ -131,8 +131,18 @@ void processGravity(GameState* game)
     game->man.x += game->man.dx;
 }
 
+SDL_Surface* load_image(char* imageName, GameState* game)
+{
+    SDL_Surface* surface = NULL;
+    surface = IMG_Load(imageName);
+    if (surface == NULL) {
+        printf("could not load %s \b", imageName);
+    }
+    return surface;
+}
 void GameInit(GameState* game)
 {
+    // set the man to coo and correct size
     game->man.x = 100;
     game->man.y = 30;
     game->man.w = 60;
@@ -141,6 +151,7 @@ void GameInit(GameState* game)
     game->man.dx = 0;
     game->man.facingLeft = 0;
 
+    // set where the screen start (now the man is in left corner)
     game->scrollX = 0;
     game->scrollY = 0;
     game->rightScreen = 1000;
@@ -148,6 +159,7 @@ void GameInit(GameState* game)
     game->bottomScreen = 640;
     game->topScreen = 80;
 
+    // init all the ledges
     for (int i = 0; i < 100; ++i) {
         game->ledges[i].w = 50;
         game->ledges[i].h = 50;
@@ -163,30 +175,21 @@ void GameInit(GameState* game)
         game->ledges[i].y = 620;
     }
 
-    SDL_Surface* manSurface = NULL;
-    SDL_Surface* ledgeSurface = NULL;
-    SDL_Surface* bgSurface = NULL;
+    char backgroundSurface[50] = "background.png";
+    char manSurface[50] = "man.png";
+    char ledgesSurface[50] = "grass.png";
 
-    bgSurface = IMG_Load("image/background.png");
-    if (bgSurface == NULL) {
-        printf("could not load image/background.png");
-    }
-    game->bgTexture = SDL_CreateTextureFromSurface(game->renderer, bgSurface);
-    SDL_FreeSurface(bgSurface);
+    game->bgTexture = SDL_CreateTextureFromSurface(
+        game->renderer, load_image(backgroundSurface, game));
+    SDL_FreeSurface(load_image(backgroundSurface, game));
 
-    manSurface = IMG_Load("image/man.png");
-    if (manSurface == NULL) {
-        printf("failed to load image/man.png");
-    }
-    game->manTexture = SDL_CreateTextureFromSurface(game->renderer, manSurface);
-    SDL_FreeSurface(manSurface);
+    game->manTexture = SDL_CreateTextureFromSurface(game->renderer,
+                                                    load_image(manSurface, game));
+    SDL_FreeSurface(load_image(manSurface, game));
 
-    ledgeSurface = IMG_Load("image/grass.png");
-    if (ledgeSurface == NULL) {
-        printf("failed to load image/grass.png");
-    }
-    game->ledgeTexture = SDL_CreateTextureFromSurface(game->renderer, ledgeSurface);
-    SDL_FreeSurface(ledgeSurface);
+    game->ledgeTexture = SDL_CreateTextureFromSurface(
+        game->renderer, load_image(ledgesSurface, game));
+    SDL_FreeSurface(load_image(ledgesSurface, game));
 }
 
 void doRender(GameState* game)
