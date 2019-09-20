@@ -1,0 +1,12 @@
+quick to do list, feel free to add something or tell me if there's a better way of doing something ;)
+
+-images in their folder
+
+-!Comment code
+
+-Seperate file for game mechanics functions (processEvent and collisionDetection)
+
+-start indexing code..? are their index's that'll be universal?
+
+
+anyway, this is mostly to see if i can create a pull request for you to review without merging it directly :)
