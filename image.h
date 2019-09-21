@@ -1,7 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-SDL_Surface* load_image(char* imageName, GameState* game)
+SDL_Surface* load(char* imageName)
 {
     SDL_Surface* surface = NULL;
     surface = IMG_Load(imageName);
@@ -17,20 +17,16 @@ void init_image(GameState* game)
     char ledgesSurface[50] = "image/grass.png";
     char monstre1Surface[50] = "image/monstre1.png";
 
-    game->bgTexture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(backgroundSurface, game));
-    SDL_FreeSurface(load_image(backgroundSurface, game));
+    game->bgTexture = SDL_CreateTextureFromSurface(game->renderer, load(backgroundSurface));
+    //SDL_FreeSurface(load(backgroundSurface));
 
-    game->manTexture = SDL_CreateTextureFromSurface(game->renderer,
-                                                    load_image(manSurface, game));
-    SDL_FreeSurface(load_image(manSurface, game));
+    game->manTexture = SDL_CreateTextureFromSurface(game->renderer, load(manSurface));
+    //SDL_FreeSurface(load(manSurface));
 
-    game->ledgeTexture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(ledgesSurface, game));
-    SDL_FreeSurface(load_image(ledgesSurface, game));
+    game->ledgeTexture = SDL_CreateTextureFromSurface(game->renderer, load(ledgesSurface));
+    //SDL_FreeSurface(load(ledgesSurface));
 
-    game->monstre1Texture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(monstre1Surface, game));
-    SDL_FreeSurface(load_image(monstre1Surface, game));
+    game->monstre1Texture = SDL_CreateTextureFromSurface(game->renderer, load(monstre1Surface));
+    //SDL_FreeSurface(load(monstre1Surface));
 }
 #endif
