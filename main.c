@@ -7,6 +7,7 @@
 #include "event.h"
 #include "physics.h"
 #include "image.h"
+#include "humanoid.h"
 
 void GameInit(GameState* game)
 {
@@ -72,6 +73,8 @@ void doRender(GameState* game)
         SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
     }
 
+    show_life(&game->man, game->renderer);
+    show_life(&game->monstre1, game->renderer);
     SDL_Rect manRect = {game->man.x + game->scrollX, game->man.y + game->scrollY, game->man.w, game->man.h};
     SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
 
@@ -114,6 +117,7 @@ int main(int argc, char* argv[])
         if (processEvent(window, &gameState) == 1) {
             done = 1;
         }
+
         processGravity(&gameState.man);
         processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
