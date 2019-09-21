@@ -6,16 +6,8 @@
 #include "main.h"
 #include "event.h"
 #include "physics.h"
+#include "image.h"
 
-SDL_Surface* load_image(char* imageName, GameState* game)
-{
-    SDL_Surface* surface = NULL;
-    surface = IMG_Load(imageName);
-    if (surface == NULL) {
-        printf("could not load %s \n", imageName);
-    }
-    return surface;
-}
 void GameInit(GameState* game)
 {
     // set the man to coo and correct size
@@ -57,27 +49,7 @@ void GameInit(GameState* game)
         game->ledges[i].x = 100 + (i - 80) * game->ledges[i].w;
         game->ledges[i].y = 620;
     }
-
-    char backgroundSurface[50] = "image/background.png";
-    char manSurface[50] = "image/man.png";
-    char ledgesSurface[50] = "image/grass.png";
-    char monstre1Surface[50] = "image/monstre1.png";
-
-    game->bgTexture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(backgroundSurface, game));
-    SDL_FreeSurface(load_image(backgroundSurface, game));
-
-    game->manTexture = SDL_CreateTextureFromSurface(game->renderer,
-                                                    load_image(manSurface, game));
-    SDL_FreeSurface(load_image(manSurface, game));
-
-    game->ledgeTexture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(ledgesSurface, game));
-    SDL_FreeSurface(load_image(ledgesSurface, game));
-
-    game->monstre1Texture = SDL_CreateTextureFromSurface(
-        game->renderer, load_image(monstre1Surface, game));
-    SDL_FreeSurface(load_image(monstre1Surface, game));
+    init_image(game);
 }
 
 void doRender(GameState* game)
