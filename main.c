@@ -104,8 +104,9 @@ int main(int argc, char* argv[])
         }
         processGravity(&gameState.man);
         processGravity(&gameState.monstre1);
-        collisionDetection(&gameState);
-        collisionDetectionMonster(&gameState);
+        for (int i = 0; i < 100; ++i) {
+            collisionDetection(&gameState.man, &gameState.ledges[i]);
+        }
         doRender(&gameState);
     }
 
