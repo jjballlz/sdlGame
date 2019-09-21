@@ -35,13 +35,13 @@ void GameInit(GameState* game)
     game->topScreen = 80;
 
     // init all the ledges
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
         game->ledges[i].w = 50;
         game->ledges[i].h = 50;
         game->ledges[i].x = i * game->ledges[i].w;
         game->ledges[i].y = 670;
     }
-    for (int i = 90; i < 100; i++) {
+    for (int i = 90; i < sizeof(game->ledges) / sizeof(game->ledges[0]); i++) {
         game->ledges[i].x = 500 + (i - 90) * game->ledges[i].w;
         game->ledges[i].y = 450;
     }
@@ -60,7 +60,7 @@ void doRender(GameState* game)
     SDL_Rect bgRect = {0, 0, 1080, 720};
     SDL_RenderCopy(game->renderer, game->bgTexture, NULL, &bgRect);
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
         SDL_Rect ledgeRect = {game->ledges[i].x + game->scrollX, game->ledges[i].y + game->scrollY, game->ledges[i].w, game->ledges[i].h};
         SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
     }
