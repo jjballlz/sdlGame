@@ -26,7 +26,14 @@ void GameInit(GameState* game)
     game->man.dy = 0;
     game->man.dx = 0;
     game->man.facingLeft = 0;
-
+    // set the man to coo and correct size
+    game->monstre1.x = 500;
+    game->monstre1.y = 300;
+    game->monstre1.w = 60;
+    game->monstre1.h = 60;
+    game->monstre1.dy = 0;
+    game->monstre1.dx = 0;
+    game->monstre1.facingLeft = 0;
     // set where the screen start (now the man is in left corner)
     game->scrollX = 0;
     game->scrollY = 0;
@@ -54,6 +61,7 @@ void GameInit(GameState* game)
     char backgroundSurface[50] = "image/background.png";
     char manSurface[50] = "image/man.png";
     char ledgesSurface[50] = "image/grass.png";
+    char monstre1Surface[50] = "image/monstre1.png";
 
     game->bgTexture = SDL_CreateTextureFromSurface(
         game->renderer, load_image(backgroundSurface, game));
@@ -66,6 +74,10 @@ void GameInit(GameState* game)
     game->ledgeTexture = SDL_CreateTextureFromSurface(
         game->renderer, load_image(ledgesSurface, game));
     SDL_FreeSurface(load_image(ledgesSurface, game));
+
+    game->monstre1Texture = SDL_CreateTextureFromSurface(
+        game->renderer, load_image(monstre1Surface, game));
+    SDL_FreeSurface(load_image(monstre1Surface, game));
 }
 
 void doRender(GameState* game)
@@ -83,6 +95,9 @@ void doRender(GameState* game)
 
     SDL_Rect manRect = {game->man.x + game->scrollX, game->man.y + game->scrollY, game->man.w, game->man.h};
     SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
+
+    SDL_Rect monstre1Rect = {game->monstre1.x + game->scrollX, game->monstre1.y + game->scrollY, game->monstre1.w, game->monstre1.h};
+    SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
 
     SDL_RenderPresent(game->renderer);
 }
@@ -115,8 +130,10 @@ int main(int argc, char* argv[])
         if (processEvent(window, &gameState) == 1) {
             done = 1;
         }
-        processGravity(&gameState);
+        processGravity(&gameState.man);
+        processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
+        collisionDetectionMonster(&gameState);
         doRender(&gameState);
     }
 
