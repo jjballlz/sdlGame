@@ -9,7 +9,7 @@ typedef struct
     short life;
     char* name;
     int facingLeft;
-} Man;
+} Humanoid;
 
 typedef struct
 {
@@ -29,12 +29,14 @@ typedef struct
     float leftScreen;
     float topScreen, bottomScreen;
 
-    Man man;
+    Humanoid man;
+    Humanoid monstre1;
 
     Ledge ledges[100];
 
     SDL_Texture* bgTexture;
     SDL_Texture* manTexture;
+    SDL_Texture* monstre1Texture;
     SDL_Texture* ledgeTexture;
     SDL_Renderer* renderer;
 } GameState;
