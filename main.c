@@ -61,14 +61,14 @@ void doRender(GameState* game)
     SDL_RenderCopy(game->renderer, game->bgTexture, NULL, &bgRect);
 
     for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
-        SDL_Rect ledgeRect = {game->ledges[i].x + game->scrollX, game->ledges[i].y + game->scrollY, game->ledges[i].w, game->ledges[i].h};
+        SDL_Rect ledgeRect = {game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h};
         SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
     }
 
-    SDL_Rect manRect = {game->man.x + game->scrollX, game->man.y + game->scrollY, game->man.w, game->man.h};
+    SDL_Rect manRect = {game->man.x, game->man.y, game->man.w, game->man.h};
     SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
 
-    SDL_Rect monstre1Rect = {game->monstre1.x + game->scrollX, game->monstre1.y + game->scrollY, game->monstre1.w, game->monstre1.h};
+    SDL_Rect monstre1Rect = {game->monstre1.x, game->monstre1.y, game->monstre1.w, game->monstre1.h};
     SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
 
     SDL_RenderPresent(game->renderer);
@@ -106,6 +106,7 @@ int main(int argc, char* argv[])
         processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
         collisionDetectionMonster(&gameState);
+	scroll(&gameState);
         doRender(&gameState);
     }
 

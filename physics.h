@@ -86,8 +86,8 @@ void collisionDetectionMonster(GameState* game)
 }
 void processGravity(Humanoid* humanoide)
 {
-    humanoide->y += humanoide->dy;
     humanoide->dy += GRAVITY;
+    humanoide->y += humanoide->dy;
     humanoide->x += humanoide->dx;
 }
 #endif

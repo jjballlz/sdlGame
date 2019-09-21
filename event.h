@@ -54,30 +54,45 @@ int processEvent(SDL_Window* window, GameState* game)
 
     //scrolling
 
-    if (game->man.x + game->man.w > game->rightScreen) {
-        game->rightScreen = game->man.x + game->man.w;
-        game->leftScreen = game->rightScreen - 920;
-
-        game->scrollX = -(game->rightScreen - 1000);
-    }
-    if (game->man.x < game->leftScreen) {
-        game->leftScreen = game->man.x;
-        game->rightScreen = game->leftScreen + 920;
-
-        game->scrollX = -(game->leftScreen - 80);
-    }
-    if (game->man.y < game->topScreen) {
-        game->topScreen = game->man.y;
-        game->bottomScreen = game->topScreen + 560;
-
-        game->scrollY = -(game->topScreen - 80);
-    }
-    if (game->man.y + game->man.h > game->bottomScreen) {
-        game->bottomScreen = game->man.y + game->man.h;
-        game->topScreen = game->bottomScreen - 560;
-
-        game->scrollY = -(game->bottomScreen - 560);
-    }
+    //    if (game->man.x + game->man.w > game->rightScreen) {
+    //        game->rightScreen = game->man.x + game->man.w;
+    //        game->leftScreen = game->rightScreen - 920;
+    //
+    //        game->scrollX = -(game->rightScreen - 1000);
+    //    }
+    //    if (game->man.x < game->leftScreen) {
+    //        game->leftScreen = game->man.x;
+    //        game->rightScreen = game->leftScreen + 920;
+    //
+    //        game->scrollX = -(game->leftScreen - 80);
+    //    }
+    //    if (game->man.y < game->topScreen) {
+    //        game->topScreen = game->man.y;
+    //        game->bottomScreen = game->topScreen + 560;
+    //
+    //        game->scrollY = -(game->topScreen - 80);
+    //    }
+    //    if (game->man.y + game->man.h > game->bottomScreen) {
+    //        game->bottomScreen = game->man.y + game->man.h;
+    //        game->topScreen = game->bottomScreen - 560;
+    //
+    //        game->scrollY = -(game->bottomScreen - 560);
+    //    }
     return done;
 }
+
+void scroll(GameState* game)
+{
+    game->scrollX = -(game->man.dx);
+    game->scrollY = -(game->man.dy);
+
+    game->monstre1.x = game->monstre1.x + game->scrollX;
+    game->monstre1.y = game->monstre1.y + game->scrollY;
+
+    for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
+        game->ledges[i].x = game->ledges[i].x + game->scrollX;
+        game->ledges[i].y = game->ledges[i].y + game->scrollY;
+    }
+}
+
 #endif
