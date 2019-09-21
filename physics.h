@@ -88,6 +88,6 @@ void processGravity(Humanoid* humanoide)
 {
     humanoide->dy += GRAVITY;
     humanoide->y += humanoide->dy;
-    humanoide->x += humanoide->dx;
+//    humanoide->x += humanoide->dx;
 }
 #endif
