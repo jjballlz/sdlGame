@@ -16,6 +16,7 @@ void init_image(GameState* game)
     char manSurface[50] = "image/man.png";
     char ledgesSurface[50] = "image/grass.png";
     char monstre1Surface[50] = "image/monstre1.png";
+    char starSurface[50] = "image/star.png";
 
     game->bgTexture = SDL_CreateTextureFromSurface(game->renderer, load(backgroundSurface));
     //SDL_FreeSurface(load(backgroundSurface));
@@ -28,5 +29,6 @@ void init_image(GameState* game)
 
     game->monstre1Texture = SDL_CreateTextureFromSurface(game->renderer, load(monstre1Surface));
     //SDL_FreeSurface(load(monstre1Surface));
+    game->starTexture = SDL_CreateTextureFromSurface(game->renderer, load(starSurface));
 }
 #endif

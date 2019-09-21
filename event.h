@@ -1,5 +1,6 @@
 #ifndef EVENT_H
 #define EVENT_H
+#include "spell.h"
 
 int processEvent(SDL_Window* window, GameState* game)
 {
@@ -37,6 +38,15 @@ int processEvent(SDL_Window* window, GameState* game)
         if (game->man.dx >= 6.5f) {
             game->man.dx = 6.5f;
         }
+    }
+    if (state[SDL_SCANCODE_C]) {
+        if (game->key_C == 0) {
+            shoot_star(game);
+            game->key_C = 1;
+        }
+
+    } else {
+        game->key_C = 0;
     }
 
     if (state[SDL_SCANCODE_RIGHT] == state[SDL_SCANCODE_LEFT]) {

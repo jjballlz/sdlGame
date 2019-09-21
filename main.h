@@ -13,14 +13,15 @@ typedef struct
 
 typedef struct
 {
-    int x, y, w, h;
-} Ledge;
+    float x, y, w, h;
+    float dy;
+    float dx;
+} Star;
 
 typedef struct
 {
-    float x, y;
-    float dy;
-} Star;
+    int x, y, w, h;
+} Ledge;
 
 typedef struct
 {
@@ -33,11 +34,15 @@ typedef struct
     Humanoid monstre1;
 
     Ledge ledges[100];
+    Star star[10];
+    int nbr_star;
+    int key_C;
 
     SDL_Texture* bgTexture;
     SDL_Texture* manTexture;
     SDL_Texture* monstre1Texture;
     SDL_Texture* ledgeTexture;
+    SDL_Texture* starTexture;
     SDL_Renderer* renderer;
 } GameState;
 
