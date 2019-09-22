@@ -3,6 +3,7 @@
 #define GRAVITY 1
 void collisionDetection(GameState* game)
 {
+    printf("\n\nstar for");
     for (int i = 0; i < 100; ++i) {
         int manWidth = game->man.w;
         int manHeight = game->man.h;
@@ -16,24 +17,32 @@ void collisionDetection(GameState* game)
         //check for collision in y
         if (((manX + manWidth > ledgeX) && (manX + manWidth < ledgeX + ledgeWidth)) || ((manX > ledgeX) && (manX < ledgeX + ledgeWidth))) {
             if ((manY + manHeight) > ledgeY && (manY + manHeight) < (ledgeY + ledgeHeight) || ((manY + manHeight) == ledgeY)) {
-                printf("collision\n");
                 if ((manY + manHeight) != ledgeY) {
                     int delta;
-                    printf("detla:%d\tmyb:%d\tly:%d\n", delta, manY + manHeight, ledgeY);
                     delta = fabsf((manY + manHeight) - ledgeY);
                     game->man.y -= delta;
                 }
                 game->man.dy = 0;
             }
-            if (manY > ledgeY && manY < ledgeY + ledgeHeight /*  || (manY == (ledgeY + ledgeHeight) */) {
-                printf("collisionnnnn\n");
+            if (manY > ledgeY && manY < ledgeY + ledgeHeight) {
                 if (manY != ledgeY + ledgeHeight) {
                     int delta;
-                    printf("detla:%d\tmyb:%d\tly:%d\n", delta, manY + manHeight, ledgeY);
                     delta = fabsf(ledgeY + ledgeHeight - manY);
                     game->man.y += delta;
                 }
                 game->man.dy = 0;
+            }
+        }
+        if (((manY + manHeight > ledgeY) && (manY + manHeight < ledgeY + ledgeHeight)) || ((manY > ledgeY) && (manY < ledgeY + ledgeHeight)) || (manY + manHeight == ledgeY + ledgeHeight)) {
+            printf("%d lateral\n", i);
+
+            if (((manX + manWidth) > ledgeX && (manX + manWidth) < (ledgeX + ledgeWidth) || ((manX + manWidth) == ledgeX)) && (game->man.facingLeft == 0)) {
+                printf("collision\n");
+                game->man.dx = 0;
+            }
+            if ((manX > ledgeX && manX < ledgeX + ledgeWidth || (manX == (ledgeX + ledgeWidth))) && (game->man.facingLeft == 1)) {
+                printf("collisionnnnn\n");
+                game->man.dx = 0;
             }
         }
     }
