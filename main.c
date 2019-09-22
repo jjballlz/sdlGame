@@ -78,7 +78,7 @@ void doRender(GameState* game)
     SDL_Rect manRect = {game->man.x, game->man.y, game->man.w, game->man.h};
     SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
 
-    SDL_Rect monstre1Rect = {0, 0, game->monstre1.w, game->monstre1.h};
+    SDL_Rect monstre1Rect = {game->monstre1.x, game->monstre1.y, game->monstre1.w, game->monstre1.h};
     SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
 
     for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
@@ -119,12 +119,11 @@ int main(int argc, char* argv[])
         }
 
         processGravity(&gameState.man);
-        //processGravity(&gameState.monstre1);
+        processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
-        //collisionDetectionMonster(&gameState);
+        collisionDetectionMonster(&gameState);
         scrolling(&gameState);
         doRender(&gameState);
-        // printf("x:%0.2f\ty:%0.2f\tdy:%0.2f\n", gameState.man.x, gameState.man.y, gameState.man.dy);
     }
 
     SDL_DestroyWindow(window);

@@ -71,6 +71,7 @@ int scrolling_x(GameState* game)
     for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
         game->ledges[i].x -= game->man.dx;
     }
+    game->monstre1.x -= game->man.dx;
 }
 int scrolling_y(GameState* game)
 {
