@@ -3,9 +3,9 @@
 
 typedef struct
 {
-    float x, y, w, h;
-    float dy;
-    float dx;
+    int x, y, w, h;
+    int dy;
+    int dx;
     short life;
     char* name;
     int facingLeft;
@@ -25,7 +25,7 @@ typedef struct
 
 typedef struct
 {
-    float scrollX, scrollY;
+    int scrollX, scrollY;
     float rightScreen;
     float leftScreen;
     float topScreen, bottomScreen;
