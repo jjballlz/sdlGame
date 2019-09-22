@@ -30,13 +30,13 @@ void collisionDetection(GameState* game)
         }
         if (manY + manHeight > ledgeY && manY < ledgeY + ledgeHeight) {
             if (game->man.dx > 0 && manX + manWidth > ledgeX && manX < ledgeX) {
-                game->man.x = ledgeX - manWidth;
+                //game->man.x = ledgeX - manWidth;
                 manX = ledgeX - manWidth;
                 game->man.dx = 0;
             }
 
             if (game->man.dx < 0 && manX < ledgeX + ledgeWidth && ledgeX + ledgeWidth < manX + manWidth) {
-                game->man.x = ledgeX + ledgeWidth;
+                //game->man.x = ledgeX + ledgeWidth;
                 manX = ledgeX + ledgeWidth;
                 game->man.dx = 0;
             }
@@ -88,6 +88,5 @@ void processGravity(Humanoid* humanoide)
 {
     humanoide->y += humanoide->dy;
     humanoide->dy += GRAVITY;
-    humanoide->x += humanoide->dx;
 }
 #endif

@@ -26,19 +26,21 @@ int processEvent(SDL_Window* window, GameState* game)
         done = 1;
     }
     if (state[SDL_SCANCODE_LEFT]) {
-        game->man.dx -= 0.6f;
+        game->man.dx -= 1;
         game->man.facingLeft = 1;
-        if (game->man.dx <= -6.5f) {
-            game->man.dx = -6.5f;
+        if (game->man.dx <= -7) {
+            game->man.dx = -7;
         }
-    }
-    if (state[SDL_SCANCODE_RIGHT]) {
-        game->man.dx += 0.6f;
+    } else if (state[SDL_SCANCODE_RIGHT]) {
+        game->man.dx += 1;
         game->man.facingLeft = 0;
-        if (game->man.dx >= 6.5f) {
-            game->man.dx = 6.5f;
+        if (game->man.dx >= 7) {
+            game->man.dx = 7;
         }
+    } else {
+        game->man.dx = 0;
     }
+
     if (state[SDL_SCANCODE_C]) {
         if (game->key_C == 0) {
             shoot_star(game);
@@ -49,9 +51,9 @@ int processEvent(SDL_Window* window, GameState* game)
         game->key_C = 0;
     }
 
-    if (state[SDL_SCANCODE_RIGHT] == state[SDL_SCANCODE_LEFT]) {
-        game->man.dx *= 0.8f;
-    }
+    //if (state[SDL_SCANCODE_RIGHT] == state[SDL_SCANCODE_LEFT]) {
+    //    game->man.dx *= 0.8f;
+    //}
     /*
 	if(state[SDL_SCANCODE_DOWN])
 	{
@@ -62,20 +64,16 @@ int processEvent(SDL_Window* window, GameState* game)
         game->man.dy = -15;
     }
 
-    //scrolling
-
-    if (game->man.x + game->man.w > game->rightScreen) {
-        game->rightScreen = game->man.x + game->man.w;
-        game->leftScreen = game->rightScreen - 920;
-
-        game->scrollX = -(game->rightScreen - 1000);
+    return done;
+}
+int scrolling_x(GameState* game)
+{
+    for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
+        game->ledges[i].x -= game->man.dx;
     }
-    if (game->man.x < game->leftScreen) {
-        game->leftScreen = game->man.x;
-        game->rightScreen = game->leftScreen + 920;
-
-        game->scrollX = -(game->leftScreen - 80);
-    }
+}
+int scrolling_y(GameState* game)
+{
     if (game->man.y < game->topScreen) {
         game->topScreen = game->man.y;
         game->bottomScreen = game->topScreen + 560;
@@ -88,6 +86,11 @@ int processEvent(SDL_Window* window, GameState* game)
 
         game->scrollY = -(game->bottomScreen - 560);
     }
-    return done;
+}
+int scrolling(GameState* game)
+{ //scrolling
+
+    scrolling_x(game);
+    scrolling_y(game);
 }
 #endif

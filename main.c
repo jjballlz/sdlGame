@@ -12,7 +12,7 @@
 void GameInit(GameState* game)
 {
     // set the man to coo and correct size
-    game->man.x = 100;
+    game->man.x = 540;
     game->man.y = 30;
     game->man.w = 60;
     game->man.h = 60;
@@ -30,9 +30,9 @@ void GameInit(GameState* game)
     // set where the screen start (now the man is in left corner)
     game->scrollX = 0;
     game->scrollY = 0;
-    game->rightScreen = 1000;
+    game->rightScreen = 180;
     game->leftScreen = 80;
-    game->bottomScreen = 640;
+    game->bottomScreen = 720;
     game->topScreen = 80;
     //init star
     for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
@@ -69,21 +69,21 @@ void doRender(GameState* game)
     SDL_RenderCopy(game->renderer, game->bgTexture, NULL, &bgRect);
 
     for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
-        SDL_Rect ledgeRect = {game->ledges[i].x + game->scrollX, game->ledges[i].y + game->scrollY, game->ledges[i].w, game->ledges[i].h};
+        SDL_Rect ledgeRect = {game->ledges[i].x, game->ledges[i].y + game->scrollY, game->ledges[i].w, game->ledges[i].h};
         SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
     }
 
     show_life(&game->man, game->renderer);
     show_life(&game->monstre1, game->renderer);
-    SDL_Rect manRect = {game->man.x + game->scrollX, game->man.y + game->scrollY, game->man.w, game->man.h};
+    SDL_Rect manRect = {game->man.x, game->man.y + game->scrollY, game->man.w, game->man.h};
     SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
 
-    SDL_Rect monstre1Rect = {game->monstre1.x + game->scrollX, game->monstre1.y + game->scrollY, game->monstre1.w, game->monstre1.h};
+    SDL_Rect monstre1Rect = {0, 0, game->monstre1.w, game->monstre1.h};
     SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
 
     for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
         game->star[i].x += game->star[i].dx;
-        SDL_Rect starRect = {game->star[i].x + game->scrollX, game->star[i].y + game->scrollY, game->star[i].w, game->star[i].h};
+        SDL_Rect starRect = {game->star[i].x, game->star[i].y + game->scrollY, game->star[i].w, game->star[i].h};
         SDL_RenderCopyEx(game->renderer, game->starTexture, NULL, &starRect, 0, NULL, 0);
     }
     SDL_RenderPresent(game->renderer);
@@ -119,10 +119,12 @@ int main(int argc, char* argv[])
         }
 
         processGravity(&gameState.man);
-        processGravity(&gameState.monstre1);
+        //processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
-        collisionDetectionMonster(&gameState);
+        //collisionDetectionMonster(&gameState);
+        scrolling(&gameState);
         doRender(&gameState);
+        printf("x:%f\ty:%f\n", gameState.man.x, gameState.man.y);
     }
 
     SDL_DestroyWindow(window);

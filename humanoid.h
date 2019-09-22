@@ -5,7 +5,7 @@ void show_life(Humanoid* humanoid, SDL_Renderer* renderer)
 {
     // Create a rectangle
     SDL_Rect r;
-    r.x = humanoid->x + 2;
+    r.x = humanoid->x;
     r.y = humanoid->y - humanoid->h - 10;
     r.w = 50;
     r.h = 5;
