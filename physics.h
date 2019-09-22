@@ -1,21 +1,35 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
-#define GRAVITY 0.8f
-
+#define GRAVITY 1
 void collisionDetection(GameState* game)
 {
     for (int i = 0; i < 100; ++i) {
-        float manWidth = game->man.w;
-        float manHeight = game->man.h;
-        float manX = game->man.x;
-        float manY = game->man.y;
-        float ledgeX = game->ledges[i].x;
-        float ledgeY = game->ledges[i].y;
-        float ledgeWidth = game->ledges[i].w;
-        float ledgeHeight = game->ledges[i].h;
-        float vCheck = fabsf((manY + manHeight / 2) - (ledgeY + ledgeHeight / 2));
+        int manWidth = game->man.w;
+        int manHeight = game->man.h;
+        int manX = game->man.x;
+        int manY = game->man.y;
+        int ledgeX = game->ledges[i].x;
+        int ledgeY = game->ledges[i].y;
+        int ledgeWidth = game->ledges[i].w;
+        int ledgeHeight = game->ledges[i].h;
+        int vCheck = fabsf((manY + manHeight / 2) - (ledgeY + ledgeHeight / 2));
 
-        if (manX + manWidth > ledgeX && manX < ledgeX + ledgeWidth && vCheck > 5) {
+        if (((manX + manWidth > ledgeX) && (manX + manWidth < ledgeX + ledgeWidth)) || ((manX > ledgeX) && (manX < ledgeX + ledgeWidth))) {
+            if ((manY + manHeight) > ledgeY && (manY + manHeight) < (ledgeY + ledgeHeight) || ((manY + manHeight) == ledgeY)) {
+                printf("collision\n");
+                if ((manY + manHeight) != ledgeY) {
+                    int delta;
+                    printf("detla:%d\tmyb:%d\tly:%d\n", delta, manY + manHeight, ledgeY);
+                    delta = fabsf((manY + manHeight) - ledgeY);
+                    game->man.y -= delta;
+                    //for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
+                    //    game->ledges[i].y += delta;
+                    //}
+                }
+                game->man.dy = 0;
+            }
+        }
+        /* if (manX + manWidth > ledgeX && manX < ledgeX + ledgeWidth && vCheck > 5) {
             if (game->man.dy > 0 && manY + manHeight > ledgeY && manY < ledgeY) {
                 game->man.y = ledgeY - manHeight;
                 manY = ledgeY - manHeight;
@@ -40,7 +54,7 @@ void collisionDetection(GameState* game)
                 manX = ledgeX + ledgeWidth;
                 game->man.dx = 0;
             }
-        }
+        } */
     }
 }
 void collisionDetectionMonster(GameState* game)
