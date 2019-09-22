@@ -61,7 +61,7 @@ int processEvent(SDL_Window* window, GameState* game)
 	}
 	*/
     if (state[SDL_SCANCODE_UP]) {
-        game->man.dy = -15;
+        game->man.dy = -8;
     }
 
     return done;
