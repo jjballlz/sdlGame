@@ -19,6 +19,8 @@ void GameInit(GameState* game)
     game->man.dy = 0;
     game->man.dx = 0;
     game->man.facingLeft = 0;
+    game->man.life = 80;
+    game->man.max_life = 100;
     // set the man to coo and correct size
     game->monstre1.x = 500;
     game->monstre1.y = 300;

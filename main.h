@@ -1,15 +1,6 @@
 #ifndef main_h
 #define main_h
-
-typedef struct
-{
-    int x, y, w, h;
-    int dy;
-    int dx;
-    short life;
-    char* name;
-    int facingLeft;
-} Humanoid;
+#include "humanoid.h"
 
 typedef struct
 {
