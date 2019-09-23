@@ -29,6 +29,8 @@ void GameInit(GameState* game)
     game->monstre1.dy = 0;
     game->monstre1.dx = 0;
     game->monstre1.facingLeft = 0;
+    game->monstre1.life = 100;
+    game->monstre1.max_life = 100;
     // set where the screen start (now the man is in left corner)
     game->scrollX = 0;
     game->scrollY = 0;
@@ -124,6 +126,7 @@ int main(int argc, char* argv[])
         processGravity(&gameState.monstre1);
         collisionDetection(&gameState);
         collisionDetectionMonster(&gameState);
+        collisionDetectionStar(&gameState);
         scrolling(&gameState);
         doRender(&gameState);
     }
