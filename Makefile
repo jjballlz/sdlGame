@@ -5,6 +5,10 @@ appname = main
 all: $(appname)
 clean:
 	rm -f $(appname) *.o
+
+rb: 
+	rm -f $(appname) *.o
+	make all
 .PHONY: all clean
 
 sdl_cflags := $(shell sdl2-config --cflags)

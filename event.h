@@ -25,13 +25,13 @@ int processEvent(SDL_Window* window, GameState* game)
     if (state[SDL_SCANCODE_ESCAPE]) {
         done = 1;
     }
-    if (state[SDL_SCANCODE_LEFT]) {
+    if (state[SDL_SCANCODE_LEFT] && !state[SDL_SCANCODE_RIGHT]) {
         game->man.dx -= 1;
         game->man.facingLeft = 1;
         if (game->man.dx <= -7) {
             game->man.dx = -7;
         }
-    } else if (state[SDL_SCANCODE_RIGHT]) {
+    } else if (state[SDL_SCANCODE_RIGHT] && !state[SDL_SCANCODE_LEFT]) {
         game->man.dx += 1;
         game->man.facingLeft = 0;
         if (game->man.dx >= 7) {
