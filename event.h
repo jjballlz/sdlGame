@@ -25,6 +25,17 @@ int processEvent(SDL_Window* window, GameState* game)
     if (state[SDL_SCANCODE_ESCAPE]) {
         done = 1;
     }
+    //test
+    if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED) {
+        game->nbr_ledge_mouse += 1;
+    }
+    if (event.button.button == SDL_BUTTON_RIGHT && event.button.state == SDL_PRESSED) {
+        for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
+            if (game->ledge_mouse[i].x != -666) {
+                printf("ledge:\t%d\tx:\t%d\ty:\t%d\n", i, game->ledge_mouse[i].x, game->ledge_mouse[i].y);
+            }
+        }
+    }
     if (state[SDL_SCANCODE_LEFT] && !state[SDL_SCANCODE_RIGHT]) {
         game->man.dx -= 1;
         game->man.facingLeft = 1;

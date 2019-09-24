@@ -8,7 +8,7 @@
 #include "physics.h"
 #include "image.h"
 #include "humanoid.h"
-
+//void test_mouse()
 void GameInit(GameState* game)
 {
     // set the man to coo and correct size
@@ -21,6 +21,7 @@ void GameInit(GameState* game)
     game->man.facingLeft = 0;
     game->man.life = 80;
     game->man.max_life = 100;
+    game->nbr_ledge_mouse = 0;
     // set the man to coo and correct size
     game->monstre1.x = 500;
     game->monstre1.y = 300;
@@ -51,7 +52,7 @@ void GameInit(GameState* game)
         game->ledges[i].w = 50;
         game->ledges[i].h = 50;
         game->ledges[i].x = i * game->ledges[i].w;
-        game->ledges[i].y = 670;
+        game->ledges[i].y = 650;
     }
     for (int i = 90; i < sizeof(game->ledges) / sizeof(game->ledges[0]); i++) {
         game->ledges[i].x = 500 + (i - 90) * game->ledges[i].w;
@@ -59,7 +60,11 @@ void GameInit(GameState* game)
     }
     for (int i = 80; i < 90; i++) {
         game->ledges[i].x = 100 + (i - 80) * game->ledges[i].w;
-        game->ledges[i].y = 620;
+        game->ledges[i].y = 600;
+    }
+    for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
+        game->ledge_mouse[i].x = -666;
+        game->ledge_mouse[i].y = -666;
     }
     init_image(game);
 }
@@ -90,6 +95,11 @@ void doRender(GameState* game)
         SDL_Rect starRect = {game->star[i].x, game->star[i].y, game->star[i].w, game->star[i].h};
         SDL_RenderCopyEx(game->renderer, game->starTexture, NULL, &starRect, 0, NULL, 0);
     }
+    //test
+    for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
+        SDL_Rect ledgeRect = {game->ledge_mouse[i].x, game->ledge_mouse[i].y, 50, 50};
+        SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
+    }
     SDL_RenderPresent(game->renderer);
 }
 
@@ -117,6 +127,9 @@ int main(int argc, char* argv[])
 
     GameInit(&gameState);
 
+    int x;
+    int y;
+
     while (!done) {
         if (processEvent(window, &gameState) == 1) {
             done = 1;
@@ -128,7 +141,13 @@ int main(int argc, char* argv[])
         collisionDetectionMonster(&gameState);
         collisionDetectionStar(&gameState);
         scrolling(&gameState);
+
+        SDL_GetMouseState(&x, &y);
+        gameState.ledge_mouse[gameState.nbr_ledge_mouse].x = x - x % 25 - 25;
+        gameState.ledge_mouse[gameState.nbr_ledge_mouse].y = y - y % 25 - 25;
         doRender(&gameState);
+
+        //printf("X:\t%d\tY:\t%d\n", x, y);
     }
 
     SDL_DestroyWindow(window);

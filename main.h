@@ -25,6 +25,8 @@ typedef struct
     Humanoid monstre1;
 
     Ledge ledges[100];
+    int nbr_ledge_mouse;
+    Ledge ledge_mouse[100];
     Star star[10];
     int nbr_star;
     int key_C;

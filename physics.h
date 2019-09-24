@@ -103,7 +103,9 @@ void collisionDetectionStar(GameState* game)
                 game->star[i].x = -100;
                 game->star[i].y = -100;
                 if (game->monstre1.life > 0) {
-                    game->monstre1.life -= 5;
+                    game->monstre1.life -= 10;
+                } else {
+                    game->monstre1.x = -10000;
                 }
             }
 
@@ -114,7 +116,9 @@ void collisionDetectionStar(GameState* game)
                 game->star[i].x = -100;
                 game->star[i].y = -100;
                 if (game->monstre1.life > 0) {
-                    game->monstre1.life -= 5;
+                    game->monstre1.life -= 10;
+                } else {
+                    game->monstre1.x = -10000;
                 }
             }
         }
@@ -126,7 +130,9 @@ void collisionDetectionStar(GameState* game)
                 game->star[i].x = -100;
                 game->star[i].y = -100;
                 if (game->monstre1.life > 0) {
-                    game->monstre1.life -= 5;
+                    game->monstre1.life -= 10;
+                } else {
+                    game->monstre1.x = -10000;
                 }
             }
 
@@ -137,7 +143,9 @@ void collisionDetectionStar(GameState* game)
                 game->star[i].x = -100;
                 game->star[i].y = -100;
                 if (game->monstre1.life > 0) {
-                    game->monstre1.life -= 5;
+                    game->monstre1.life -= 10;
+                } else {
+                    game->monstre1.x = -10000;
                 }
             }
         }
