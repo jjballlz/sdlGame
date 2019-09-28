@@ -30,11 +30,23 @@ int processEvent(SDL_Window* window, GameState* game)
         game->nbr_ledges += 1;
     }
     if (event.button.button == SDL_BUTTON_RIGHT && event.button.state == SDL_PRESSED) {
+        FILE* fp;
+        fp = fopen("map.txt", "w");
+
+        fprintf(fp, "#ifndef MAP_H\n#define MAP_H\n");
+        fprintf(fp, "void init_map(GameState* game){\n");
+
         for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); i++) {
             if (game->ledges[i].x != -666) {
-                printf("ledge:\t%d\tx:\t%d\ty:\t%d\n", i, game->ledges[i].x, game->ledges[i].y);
+                game->man.x = 540;
+                fprintf(fp, "game->ledges[%d].x = %d;\n", i, game->ledges[i].x);
+                fprintf(fp, "game->ledges[%d].y = %d;\n", i, game->ledges[i].y);
+                fprintf(fp, "game->ledges[%d].w = %d;\n", i, game->ledges[i].w);
+                fprintf(fp, "game->ledges[%d].h = %d;\n\n", i, game->ledges[i].h);
             }
         }
+        fprintf(fp, "}\n#endif");
+        fclose(fp);
     }
     if (state[SDL_SCANCODE_LEFT] && !state[SDL_SCANCODE_RIGHT]) {
         game->man.dx -= 1;

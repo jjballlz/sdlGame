@@ -8,6 +8,8 @@
 #include "physics.h"
 #include "image.h"
 #include "humanoid.h"
+#include "map.h"
+
 //void test_mouse()
 void GameInit(GameState* game)
 {
@@ -112,7 +114,7 @@ int main(int argc, char* argv[])
 
     int x;
     int y;
-
+    init_map(&gameState);
     while (!done) {
         if (processEvent(window, &gameState) == 1) {
             done = 1;
