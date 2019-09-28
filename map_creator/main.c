@@ -8,7 +8,6 @@
 #include "physics.h"
 #include "image.h"
 #include "humanoid.h"
-#include "map.h"
 
 //void test_mouse()
 void GameInit(GameState* game)
@@ -74,12 +73,6 @@ void doRender(GameState* game)
     SDL_Rect monstre1Rect = {game->monstre1.x, game->monstre1.y, game->monstre1.w, game->monstre1.h};
     SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
 
-    //for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
-    //    game->star[i].x += game->star[i].dx;
-    //    SDL_Rect starRect = {game->star[i].x, game->star[i].y, game->star[i].w, game->star[i].h};
-    //    SDL_RenderCopyEx(game->renderer, game->starTexture, NULL, &starRect, 0, NULL, 0);
-    //}
-    //test
     for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); i++) {
         SDL_Rect ledgeRect = {game->ledges[i].x, game->ledges[i].y, game->ledges[i].h, game->ledges[i].w};
         SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
@@ -114,7 +107,6 @@ int main(int argc, char* argv[])
 
     int x;
     int y;
-    init_map(&gameState);
     while (!done) {
         if (processEvent(window, &gameState) == 1) {
             done = 1;
