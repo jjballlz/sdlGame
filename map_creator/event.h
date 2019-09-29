@@ -27,14 +27,26 @@ int processEvent(SDL_Window* window, GameState* game)
     }
     //test
     if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED) {
-        game->nbr_ledge_mouse += 1;
+        game->nbr_ledges += 1;
     }
     if (event.button.button == SDL_BUTTON_RIGHT && event.button.state == SDL_PRESSED) {
-        for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
-            if (game->ledge_mouse[i].x != -666) {
-                printf("ledge:\t%d\tx:\t%d\ty:\t%d\n", i, game->ledge_mouse[i].x, game->ledge_mouse[i].y);
+        FILE* fp;
+        fp = fopen("map.txt", "w");
+
+        fprintf(fp, "#ifndef MAP_H\n#define MAP_H\n");
+        fprintf(fp, "void init_map(GameState* game){\n");
+
+        for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); i++) {
+            if (game->ledges[i].x != -666) {
+                game->man.x = 540;
+                fprintf(fp, "game->ledges[%d].x = %d;\n", i, game->ledges[i].x);
+                fprintf(fp, "game->ledges[%d].y = %d;\n", i, game->ledges[i].y);
+                fprintf(fp, "game->ledges[%d].w = %d;\n", i, game->ledges[i].w);
+                fprintf(fp, "game->ledges[%d].h = %d;\n\n", i, game->ledges[i].h);
             }
         }
+        fprintf(fp, "}\n#endif");
+        fclose(fp);
     }
     if (state[SDL_SCANCODE_LEFT] && !state[SDL_SCANCODE_RIGHT]) {
         game->man.dx -= 1;
@@ -61,6 +73,11 @@ int processEvent(SDL_Window* window, GameState* game)
     } else {
         game->key_C = 0;
     }
+    if (state[SDL_SCANCODE_X]) {
+        game->man.x = 500;
+        game->man.y = 0;
+        game->man.dy = 0;
+    }
 
     //if (state[SDL_SCANCODE_RIGHT] == state[SDL_SCANCODE_LEFT]) {
     //    game->man.dx *= 0.8f;
@@ -84,6 +101,12 @@ int scrolling_x(GameState* game)
     }
     for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
         game->star[i].x -= game->man.dx;
+    }
+    game->scrollX += game->man.dx;
+    if (game->scrollX >= 50) {
+        game->scrollX -= 50;
+    } else if (game->scrollX <= -50) {
+        game->scrollX += 50;
     }
     game->monstre1.x -= game->man.dx;
 }
