@@ -127,9 +127,6 @@ int main(int argc, char* argv[])
 
     GameInit(&gameState);
 
-    int x;
-    int y;
-
     while (!done) {
         if (processEvent(window, &gameState) == 1) {
             done = 1;
@@ -142,12 +139,7 @@ int main(int argc, char* argv[])
         collisionDetectionStar(&gameState);
         scrolling(&gameState);
 
-        SDL_GetMouseState(&x, &y);
-        gameState.ledge_mouse[gameState.nbr_ledge_mouse].x = x - x % 25 - 25;
-        gameState.ledge_mouse[gameState.nbr_ledge_mouse].y = y - y % 25 - 25;
         doRender(&gameState);
-
-        //printf("X:\t%d\tY:\t%d\n", x, y);
     }
 
     SDL_DestroyWindow(window);
