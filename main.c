@@ -8,6 +8,7 @@
 #include "physics.h"
 #include "image.h"
 #include "humanoid.h"
+#include "render.h"
 //void test_mouse()
 void GameInit(GameState* game)
 {
@@ -21,7 +22,6 @@ void GameInit(GameState* game)
     game->man.facingLeft = 0;
     game->man.life = 80;
     game->man.max_life = 100;
-    game->nbr_ledge_mouse = 0;
     // set the man to coo and correct size
     game->monstre1.x = 500;
     game->monstre1.y = 300;
@@ -62,45 +62,7 @@ void GameInit(GameState* game)
         game->ledges[i].x = 100 + (i - 80) * game->ledges[i].w;
         game->ledges[i].y = 600;
     }
-    for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
-        game->ledge_mouse[i].x = -666;
-        game->ledge_mouse[i].y = -666;
-    }
     init_image(game);
-}
-
-void doRender(GameState* game)
-{
-    SDL_SetRenderDrawColor(game->renderer, 0, 0, 255, 255);
-    SDL_RenderClear(game->renderer);
-
-    SDL_Rect bgRect = {0, 0, 1080, 720};
-    SDL_RenderCopy(game->renderer, game->bgTexture, NULL, &bgRect);
-
-    for (int i = 0; i < sizeof(game->ledges) / sizeof(game->ledges[0]); ++i) {
-        SDL_Rect ledgeRect = {game->ledges[i].x, game->ledges[i].y, game->ledges[i].w, game->ledges[i].h};
-        SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
-    }
-
-    show_life(&game->man, game->renderer);
-    show_life(&game->monstre1, game->renderer);
-    SDL_Rect manRect = {game->man.x, game->man.y, game->man.w, game->man.h};
-    SDL_RenderCopyEx(game->renderer, game->manTexture, NULL, &manRect, 0, NULL, (game->man.facingLeft == 1));
-
-    SDL_Rect monstre1Rect = {game->monstre1.x, game->monstre1.y, game->monstre1.w, game->monstre1.h};
-    SDL_RenderCopyEx(game->renderer, game->monstre1Texture, NULL, &monstre1Rect, 0, NULL, (game->monstre1.facingLeft == 1));
-
-    for (int i = 0; i < sizeof(game->star) / sizeof(game->star[0]); i++) {
-        game->star[i].x += game->star[i].dx;
-        SDL_Rect starRect = {game->star[i].x, game->star[i].y, game->star[i].w, game->star[i].h};
-        SDL_RenderCopyEx(game->renderer, game->starTexture, NULL, &starRect, 0, NULL, 0);
-    }
-    //test
-    for (int i = 0; i < sizeof(game->ledge_mouse) / sizeof(game->ledge_mouse[0]); i++) {
-        SDL_Rect ledgeRect = {game->ledge_mouse[i].x, game->ledge_mouse[i].y, 50, 50};
-        SDL_RenderCopy(game->renderer, game->ledgeTexture, NULL, &ledgeRect);
-    }
-    SDL_RenderPresent(game->renderer);
 }
 
 int main(int argc, char* argv[])

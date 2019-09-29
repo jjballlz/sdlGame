@@ -25,8 +25,6 @@ typedef struct
     Humanoid monstre1;
 
     Ledge ledges[100];
-    int nbr_ledge_mouse;
-    Ledge ledge_mouse[100];
     Star star[10];
     int nbr_star;
     int key_C;
@@ -36,6 +34,7 @@ typedef struct
     SDL_Texture* monstre1Texture;
     SDL_Texture* ledgeTexture;
     SDL_Texture* starTexture;
+    SDL_Texture* staffTexture;
     SDL_Renderer* renderer;
 } GameState;
 
